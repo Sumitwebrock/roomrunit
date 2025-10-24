@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Room Run - Explore</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="bg-blue-600 text-white py-4 px-6 flex justify-between items-center sticky top-0 z-40">
+<h1 class="text-2xl font-bold">🚚 Room Run</h1>
+<nav class="space-x-4">
+<a href="index.html" class="hover:text-yellow-300">Home</a>
+<a href="explore.html" class="hover:text-yellow-300">Explore</a>
+<a href="login.html" class="hover:text-yellow-300">Login</a>
+<a href="dashboard.html" class="hover:text-yellow-300">Dashboard</a>
+</nav>
+</header>
+
+<section class="py-16 bg-gray-50">
+<div class="container mx-auto px-4">
+<h2 class="text-3xl font-bold text-blue-600 mb-8 text-center">Explore Our Products</h2>
+
+<!-- Filters -->
+<div class="flex justify-center gap-4 mb-8">
+<button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" onclick="filterItems('food')">Food</button>
+<button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600" onclick="filterItems('medicine')">Medicine</button>
+<button class="bg-yellow-400 text-black px-4 py-2 rounded hover:bg-yellow-500" onclick="filterItems('essentials')">Essentials</button>
+<button class="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400" onclick="filterItems('all')">All</button>
+</div>
+
+<!-- Items Grid -->
+<div id="items-grid" class="grid md:grid-cols-3 lg:grid-cols-4 gap-6">
+<!-- Items will be dynamically added by JS -->
+</div>
+</div>
+</section>
+
+<script src="js/main.js"></script>
+<script>lucide.createIcons()</script>
+<script>
+// Sample items
+const items = [
+{type:'food', name:'Pizza', img:'images/food1.jpg', price:'₹200'},
+{type:'food', name:'Biryani', img:'images/food1.jpg', price:'₹250'},
+{type:'medicine', name:'Paracetamol', img:'images/medicine1.jpg', price:'₹50'},
+{type:'medicine', name:'First Aid Kit', img:'images/medicine1.jpg', price:'₹150'},
+{type:'essentials', name:'Toothpaste', img:'images/essentials1.jpg', price:'₹40'},
+{type:'essentials', name:'Shampoo', img:'images/essentials1.jpg', price:'₹120'},
+];
+
+function displayItems(filter='all'){
+    const grid=document.getElementById('items-grid');
+    grid.innerHTML='';
+    items.forEach(item=>{
+        if(filter==='all' || item.type===filter){
+            const div=document.createElement('div');
+            div.className='bg-white rounded shadow p-4 hover-scale text-center';
+            div.innerHTML=`<img src="${item.img}" class="rounded mb-2"><h3 class="font-semibold">${item.name}</h3><p class="text-gray-600">${item.price}</p><button onclick="showNotification('Added ${item.name} to cart')" class="bg-blue-600 text-white px-3 py-1 mt-2 rounded hover:bg-blue-700">Add</button>`;
+            grid.appendChild(div);
+        }
+    });
+}
+
+// Initial display
+displayItems();
+
+// Filter function
+function filterItems(type){ displayItems(type); }
+</script>
+</body>
+</html>
